@@ -5,7 +5,7 @@ app.use(express.json());
 let spelers = [];
 
 app.get("/plaatsen", (req, res) => {
-  res.send("Server werkt! 🌍");
+  res.json(spelers);
 });
 
 app.post("/update", (req, res) => {
