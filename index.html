@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    .block{
+    width:5vw;
+    height:5vw;
+    background-color:red;
+    }
+  </style>
 </head>
   <body>
     <h1>Hey</h1>
-
+  <div id="blockcontainer"></div>
     <script>
       var playername;
-      if(!localstorage.getItem(playername)){
+      if(!localStorage.getItem(playername)){
       playername = "player_" + Math.floor(Math.random() * 1000);
-      localstorage.setItem("playername",playername);
+      localStorage.setItem("playername",playername);
       } else {
-      playername = localstorage.getItem(playername);
+      playername = localStorage.getItem(playername);
+      }
+
+
+      function getothers() {
+
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+
+    fetch("https://cursorworld-hse9.onrender.com/plaatsen", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        for(let i = 0; i < result.length; i++){
+          var el = document.createElement('div');
+          el.className = "block";
+          el.setAttribute("id", `block_${result[i].name}`);
+          document.getElementById("blockcontainer").appendChild(el);
+        }
+      })
+      .catch((error) => console.error(error));
+        
       }
     </script>
   </body>
